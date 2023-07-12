@@ -26,12 +26,9 @@ def csv_data():
 
 @pytest.mark.parametrize("audio_file, emotion, expected_transcription", csv_data())
 class TestSpeechRecognition:
-    def test_transcribe_audio(self, audio_file, emotion, expected_transcription):
+    def test_transcribe_audio(self, emo_speech_model, audio_file, emotion, expected_transcription):
         logging.info(
             f"Running test: audio_file={audio_file}, emotion={emotion}, expected_transcription={expected_transcription}")
-
-        # Instantiate the speech recognition model
-        emo_speech_model = EmoSpeechRecognizer()
 
         # Perform speech and Emotion recognition
         emotion_result, speech_result = emo_speech_model.emo_speech_recognizer(audio_file)
