@@ -7,6 +7,7 @@ from emo_speech_recognizer import EmoSpeechRecognizer
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
+
 def csv_data():
     data = []
     file_path = os.path.join("dataset_path.csv")
@@ -26,7 +27,8 @@ def csv_data():
 @pytest.mark.parametrize("audio_file, emotion, expected_transcription", csv_data())
 class TestSpeechRecognition:
     def test_transcribe_audio(self, audio_file, emotion, expected_transcription):
-        logging.info(f"Running test: audio_file={audio_file}, emotion={emotion}, expected_transcription={expected_transcription}")
+        logging.info(
+            f"Running test: audio_file={audio_file}, emotion={emotion}, expected_transcription={expected_transcription}")
 
         # Instantiate the speech recognition model
         emo_speech_model = EmoSpeechRecognizer()
@@ -37,5 +39,10 @@ class TestSpeechRecognition:
         logging.info(f"Emotion result: {emotion_result}")
         logging.info(f"Speech result: {speech_result}")
 
-        # Assert Emotion and speech
-        assert speech_result == expected_transcription, "Failed to recognize the emotion & Transcription"
+        # Assert Speech
+        assert speech_result == expected_transcription, \
+            f"Failed to recognize Transcription, actual:{expected_transcription} observed: {speech_result}"
+
+        # assert emotion
+        assert emotion == emotion_result, \
+            f"Failed to recognize Transcription, actual:{emotion} observed: {emotion_result}"
