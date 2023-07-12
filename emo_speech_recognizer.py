@@ -64,7 +64,7 @@ class EmoSpeechRecognizer:
         final = newpred.argmax(axis=1)
         final = final.astype(int).flatten()
         final = lb.inverse_transform(final)
-        # final = str(final.tostring())
+        final = str(final[0])
 
         return final
 
@@ -82,9 +82,10 @@ class EmoSpeechRecognizer:
             }
 
             # Apply emotion-based preprocessing techniques
-            for keyword, preprocess_action in preprocessing_actions.items():
-                if emotion and keyword in emotion.lower():
-                    audio = preprocess_action(audio)
+            for emotion_key in preprocessing_actions:
+                if emotion_key in emotion:
+                    pre_processing_action = preprocessing_actions[emotion_key]
+                    audio = pre_processing_action(audio)
                     break
 
             # Convert audio to the target sample rate
@@ -111,6 +112,6 @@ class EmoSpeechRecognizer:
         emotion_result = self.load_emotion_model_and_predict(audio_path)
 
         # Recognize speech with emotion
-        speech_result = self.recognize_speech(audio_path, emotion_result[0])
+        speech_result = self.recognize_speech(audio_path, emotion_result)
 
         return emotion_result, speech_result

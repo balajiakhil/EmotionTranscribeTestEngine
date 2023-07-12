@@ -45,4 +45,4 @@ class TestSpeechRecognition:
 
         # assert emotion
         assert emotion == emotion_result, \
-            f"Failed to recognize Transcription, actual:{emotion} observed: {emotion_result}"
+            f"Failed to recognize Emotion, actual:{emotion} observed: {emotion_result}"
