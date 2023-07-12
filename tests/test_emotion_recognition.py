@@ -2,7 +2,6 @@ import os
 import csv
 import logging
 import pytest
-from emo_speech_recognizer import EmoSpeechRecognizer
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -28,7 +27,8 @@ def csv_data():
 class TestSpeechRecognition:
     def test_transcribe_audio(self, emo_speech_model, audio_file, emotion, expected_transcription):
         logging.info(
-            f"Running test: audio_file={audio_file}, emotion={emotion}, expected_transcription={expected_transcription}")
+            f"Running test: audio_file={audio_file}, emotion={emotion}, "
+            f"expected_transcription={expected_transcription}")
 
         # Perform speech and Emotion recognition
         emotion_result, speech_result = emo_speech_model.emo_speech_recognizer(audio_file)
