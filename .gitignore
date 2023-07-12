@@ -1,0 +1,19 @@
+# Ignore compiled Python files
+*.pyc
+*.pytest_cache/
+assets/
+*.html
+
+# Ignore the virtual environment folder
+venv/
+ETTEnv/
+
+# Ignore Speech model
+SpeechModel/
+
+# Ignore IDE specific files
+.idea/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
