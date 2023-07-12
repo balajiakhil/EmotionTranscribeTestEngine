@@ -9,7 +9,7 @@ venv/
 ETTEnv/
 
 # Ignore Speech model
-SpeechModel/
+vosk-model-en-us-0.22
 
 # Ignore IDE specific files
 .idea/
