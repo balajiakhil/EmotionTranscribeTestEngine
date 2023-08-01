@@ -7,7 +7,7 @@ pipeline {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sonar-server') {
-          bat './mvnw clean :sonar'
+          bat 'sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:sonar''
         }
       }
     }
