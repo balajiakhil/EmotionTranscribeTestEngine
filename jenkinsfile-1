@@ -7,7 +7,11 @@ pipeline {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sonar-server') {
-          sh 'mvn clean sonar:sonar'
+          sh """
+               ${scannerHome}/bin/sonar-scanner \
+               -Dsonar.projectKey=squ_50fdda87da0f8812e8dd7e94748a4909161798dc \
+               -Dsonar.sources=. \
+            """
         }
       }
     }
