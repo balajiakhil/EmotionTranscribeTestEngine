@@ -1,13 +1,22 @@
 pipeline {
-  agent { label 'sonar' }
+  agent { label 'any' }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
-    stage('Scan') {
+    stage('Scan with SonarQube') {
+      environment {
+        SONAR_SCANNER_HOME = tool name: 'sonarscanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+      }
       steps {
-        withSonarQubeEnv(installationName: 'sonar-server') {
-          sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
+        withSonarQubeEnv('sonarserver') {
+          sh """
+            ${SONAR_SCANNER_HOME}/bin/sonar-scanner \\
+              -Dsonar.projectKey=sonar \\
+              -Dsonar.sources=. \\
+              -Dsonar.host.url=http://localhost:9000 \\
+              -Dsonar.token=squ_ec66eaa28fb67f00b81f1882b7285c53f463f3cc
+          """
         }
       }
     }
