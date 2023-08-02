@@ -10,6 +10,7 @@ pipeline {
       }
       steps {
         withSonarQubeEnv('sonarserver') {
+          sh "ls ${SONAR_SCANNER_HOME}/bin"
           sh """
             ${SONAR_SCANNER_HOME}/bin/sonar-scanner \\
               -Dsonar.projectKey=sonar \\
