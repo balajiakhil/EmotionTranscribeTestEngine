@@ -11,11 +11,11 @@ pipeline {
       steps {
         withSonarQubeEnv('sonarserver') {
           sh """
-            ${SONAR_SCANNER_HOME}C:/Users/balaj/Downloads/vids/sonar-scanner/bin/sonar-scanner \
-            -Dsonar.projectKey=sonar \
-            -Dsonar.sources=src \
-            -Dsonar.host.url=http://localhost:9000
-            -Dsonar.login= squ_ec66eaa28fb67f00b81f1882b7285c53f463f3cc \\
+            ${SONAR_SCANNER_HOME}bin/sonar-scanner \
+            -Dsonar.projectKey=EmotionTranscribeSonar \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.token=sqp_d93bb8eb87ec34e57b8dc514b57141a6c8eb5d01
           """
         }
       }
