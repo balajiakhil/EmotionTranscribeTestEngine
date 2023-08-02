@@ -3,9 +3,9 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    def mvn = tool 'Default Maven';
+    def scannerHome = tool 'sonarscanner';
     withSonarQubeEnv() {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=EmotionTranscribeSonar -Dsonar.projectName='EmotionTranscribeSonar'"
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
 }
