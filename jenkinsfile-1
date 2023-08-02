@@ -1,24 +1,11 @@
-pipeline {
-  agent { label 'any' }
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
+node {
+  stage('SCM') {
+    checkout scm
   }
-  stages {
-    stage('Scan with SonarQube') {
-      environment {
-        SONAR_SCANNER_HOME = tool name: 'sonarscanner'
-      }
-      steps {
-        withSonarQubeEnv('sonarserver') {
-          sh """
-            ${SONAR_SCANNER_HOME}bin/sonar-scanner \
-            -Dsonar.projectKey=EmotionTranscribeSonar \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.token=sqp_d93bb8eb87ec34e57b8dc514b57141a6c8eb5d01
-          """
-        }
-      }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'sonarscanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
 }
