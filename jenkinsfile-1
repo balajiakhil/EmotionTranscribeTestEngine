@@ -4,11 +4,11 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     stages {
-        stage('sonarserver') {
+        stage('SonarQube Analysis') {
             steps {
                 script {
                     def scannerHome = tool 'sonarscanner'
-                    withSonarQubeEnv() {
+                    withSonarQubeEnv('sonarserver') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
