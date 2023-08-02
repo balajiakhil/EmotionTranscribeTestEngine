@@ -18,6 +18,8 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv() {
+                        sh "ls ${SONAR_SCANNER_HOME}"
+                        sh "echo ${SONAR_SCANNER_HOME}"
                         sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
