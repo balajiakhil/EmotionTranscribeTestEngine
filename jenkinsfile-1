@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Scan with SonarQube') {
       environment {
-        SONAR_SCANNER_HOME = tool name: 'sonarscanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        SONAR_SCANNER_HOME = tool name: 'sonarscanner'
       }
       steps {
         withSonarQubeEnv('sonarserver') {
