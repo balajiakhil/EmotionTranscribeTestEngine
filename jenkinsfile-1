@@ -9,11 +9,12 @@ pipeline {
         SONAR_SCANNER_HOME = tool name: 'sonarscanner'
       }
       steps {
-        withSonarQubeEnv() {
+        withSonarQubeEnv('sonarserver') {
           sh """
             ${SONAR_SCANNER_HOME}/bin/sonar-scanner \
-            -Dsonar.projectKey=sonar \
-            -Dsonar.sources=. \
+            -Dsonar.projectKey=EmotionTranscribeTestEngine \
+            -Dsonar.sources=src \
+            -Dsonar.host.url=http://localhost:9000
             -Dsonar.login= squ_ec66eaa28fb67f00b81f1882b7285c53f463f3cc \\
           """
         }
