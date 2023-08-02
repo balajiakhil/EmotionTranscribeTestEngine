@@ -10,7 +10,13 @@ pipeline {
       }
       steps {
         withSonarQubeEnv('sonarserver') {
-          sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner"
+          sh """
+            ${SONAR_SCANNER_HOME}/bin/sonar-scanner \\
+              -Dsonar.projectKey=sonar \\
+              -Dsonar.sources=. \\
+              -Dsonar.host.url=http://localhost:9000 \\
+              -Dsonar.token=squ_ec66eaa28fb67f00b81f1882b7285c53f463f3cc
+          """
         }
       }
     }
