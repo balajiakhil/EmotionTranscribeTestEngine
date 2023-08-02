@@ -11,7 +11,6 @@ pipeline {
         SONAR_SCANNER_HOME = tool 'sonarscanner'
         SONAR_PROJECT_KEY = 'EmotionTranscribeSonar'
         SONAR_HOST_URL = 'http://localhost:9000'
-        SONAR_TOKEN = credentials('sqp_d93bb8eb87ec34e57b8dc514b57141a6c8eb5d01') // Create a secret credential in Jenkins and set its ID here
     }
 
     stages {
@@ -23,7 +22,7 @@ pipeline {
                         -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                        -Dsonar.login=${env.SONAR_TOKEN}"
+                        -Dsonar.token=sqp_d93bb8eb87ec34e57b8dc514b57141a6c8eb5d01"
                     }
                 }
             }
