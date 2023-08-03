@@ -7,7 +7,7 @@ node {
     echo "${scannerHome}/bin/sonar-scanner"
     withSonarQubeEnv() {
       echo "${scannerHome}/bin/sonar-scanner"
-      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=EmotionTranscribeSonar -Dsonar.sources=balajiakhil\EmotionTranscribeTestEngine\. -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_d93bb8eb87ec34e57b8dc514b57141a6c8eb5d01"
+      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=EmotionTranscribeSonar -Dsonar.sources=EmotionTranscribeTestEngine\. -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_d93bb8eb87ec34e57b8dc514b57141a6c8eb5d01"
     }
   }
 }
