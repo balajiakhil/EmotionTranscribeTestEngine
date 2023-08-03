@@ -7,7 +7,7 @@ node {
     echo "${scannerHome}/bin/sonar-scanner"
     withSonarQubeEnv() {
       echo "${scannerHome}/bin/sonar-scanner"
-      sh "${scannerHome}/bin/sonar-scanner"
+      sh "${scannerHome}/bin/sonar-scanner.bat"
     }
   }
 }
