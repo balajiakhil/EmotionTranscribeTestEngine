@@ -10,6 +10,7 @@ from keras.models import model_from_json
 from keras.optimizers import RMSprop
 import pandas as pd
 import numpy as np
+import tensorflow as tf
 import librosa
 import librosa.display
 
@@ -32,12 +33,19 @@ class EmoSpeechRecognizer:
         self.target_sample_rate = target_sample_rate
 
     def transform_dataset(self, file_path):
-        data, sample_rate = librosa.load(file_path, res_type='kaiser_fast', duration=2.5, sr=44100, offset=0.5)
-        sample_rate = np.array(sample_rate)
-        mfccs = np.mean(librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=13), axis=0)
-        newdf = pd.DataFrame(data=mfccs).T
-        newdf = np.expand_dims(newdf, axis=2)
-        return newdf
+        data, sample_rate = librosa.load(file_path, res_type='kaiser_fast', sr=44100, offset=0.5)
+        # Calculate the number of frames based on the desired frame length
+        frame_length = 0.025  # Example frame length in seconds
+
+        mfccs = librosa.feature.mfcc(y=data, sr=sample_rate, n_mfcc=13, n_fft=int(sample_rate * frame_length),
+                                     hop_length=int(sample_rate * frame_length))
+
+        # Reshape MFCCs to match the expected input shape
+        max_length = 216  # Example maximum sequence length
+        mfccs = np.pad(mfccs, ((0, 0), (0, max_length - mfccs.shape[1])), mode='constant')
+        mfccs = np.expand_dims(mfccs, axis=-1)
+
+        return mfccs
 
     def load_emotion_model_and_predict(self, file_path):
         # Load the emotion recognition model architecture
@@ -50,7 +58,7 @@ class EmoSpeechRecognizer:
         loaded_model.load_weights(os.path.join("EmotionModel", "emotion_recognition_model.h5"))
 
         # Define the optimizer
-        opt = RMSprop(learning_rate=0.00001)
+        opt = tf.keras.optimizers.RMSprop(learning_rate=0.00001, rho=0.9, epsilon=None)
         loaded_model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
         newdf = self.transform_dataset(file_path)
